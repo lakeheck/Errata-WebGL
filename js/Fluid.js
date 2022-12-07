@@ -702,14 +702,22 @@ export class Fluid{
     
         //create a function to assign to a button, here linking my github
         let github = this.gui.add({ fun : () => {
-            window.open('https://github.com/lakeheck/Fluid-Simulation-WebGL');
-            ga('send', 'event', 'link button', 'github');
+            window.open('https://github.com/lakeheck/Errata-WebGL');
         } }, 'fun').name('Github');
         github.__li.className = 'cr function bigFont';
         github.__li.style.borderLeft = '3px solid #8C8C8C';
         let githubIcon = document.createElement('span');
         github.domElement.parentElement.appendChild(githubIcon);
         githubIcon.className = 'icon github';
+
+        let portfolio = this.gui.add({ fun : () => {
+            window.open('https://www.lakeheckaman.com');
+        } }, 'fun').name('Portfolio');
+        portfolio.__li.className = 'cr function bigFont';
+        portfolio.__li.style.borderLeft = '3px solid #7C4C8C';
+        // let githubIcon = document.createElement('span');
+        // github.domElement.parentElement.appendChild(githubIcon);
+        // githubIcon.className = 'icon github';
     
         if (LGL.isMobile())
             this.gui.close();
