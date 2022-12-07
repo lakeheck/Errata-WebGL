@@ -699,8 +699,14 @@ export class Fluid{
         noiseFolder.add(config, 'GAIN', 0.0, 1.0).name('Gain');
         noiseFolder.add(config, 'OCTAVES', 0, 8).name('Octaves').step(1);
 
-    
-        //create a function to assign to a button, here linking my github
+        let name = this.gui.add({ fun : () => {
+            window.open('https://www.lakeheckaman.com');
+        } }, 'fun').name('Portfolio');
+        name.__li.className = 'cr function bigFont';
+        // name.__li.style.borderLeft = '3px solid #7C2C1C';
+        //create a function to assign to a button, here linking my github'
+
+
         let github = this.gui.add({ fun : () => {
             window.open('https://github.com/lakeheck/Errata-WebGL');
         } }, 'fun').name('Github');
@@ -709,15 +715,6 @@ export class Fluid{
         let githubIcon = document.createElement('span');
         github.domElement.parentElement.appendChild(githubIcon);
         githubIcon.className = 'icon github';
-
-        let portfolio = this.gui.add({ fun : () => {
-            window.open('https://www.lakeheckaman.com');
-        } }, 'fun').name('Portfolio');
-        portfolio.__li.className = 'cr function bigFont';
-        portfolio.__li.style.borderLeft = '3px solid #7C4C8C';
-        // let githubIcon = document.createElement('span');
-        // github.domElement.parentElement.appendChild(githubIcon);
-        // githubIcon.className = 'icon github';
     
         if (LGL.isMobile())
             this.gui.close();
