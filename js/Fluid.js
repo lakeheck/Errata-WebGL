@@ -656,10 +656,10 @@ export class Fluid{
         const parName = 'Output Resolution';
         //dat is a library developed by Googles Data Team for building JS interfaces. Needs to be included in project directory 
         this.gui = new dat.GUI({ width: 300 });
+        this.gui.add(config, 'DISPLAY_FLUID').name('View Fluid <> Errata');
     
         let viewFolder = this.gui.addFolder('View Settings');
         viewFolder.add(config, 'SUNRAYS_WEIGHT', 0.01, 1.0).name('weight');
-        viewFolder.add(config, 'DISPLAY_FLUID').name('View Fluid <> Input Color');
     
         let fluidFolder = this.gui.addFolder('Fluid Settings');
         fluidFolder.add(config, 'DYE_RESOLUTION', { 'high': 1024, 'medium': 512, 'low': 256, 'very low': 128 }).name(parName).onFinishChange(this.initFramebuffers(this));
