@@ -19,8 +19,9 @@ export class Fluid{
     }
 
     splatStack = [];
-
     gui;
+    // stats = new Stats();
+
     //create all our shader programs 
     blurProgram               = new LGL.Program(GLSL.blurVertexShader, GLSL.blurShader);
     copyProgram               = new LGL.Program(GLSL.baseVertexShader, GLSL.copyShader);
@@ -85,9 +86,9 @@ export class Fluid{
         //use helper function to create pairs of buffer objects that will be ping pong'd for our sim 
         //this lets us define the buffer objects that we wil want to use for feedback 
         if (this.dye == null || this.noise == null){
-            this.dye = LGL.createDoubleFBO(canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
-            this.noise = LGL.createDoubleFBO(canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
-            this.base = LGL.createDoubleFBO(canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.dye = LGL.createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.noise = LGL.createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.base = LGL.createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
         }
         else {//resize if needed 
             this.dye = LGL.resizeDoubleFBO(this.dye, canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
@@ -107,6 +108,7 @@ export class Fluid{
         //setup buffers for post process 
         this.initBloomFramebuffers();
         this.initSunraysFramebuffers();
+        // this.stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
     }
 
     initBloomFramebuffers () {
@@ -168,6 +170,7 @@ export class Fluid{
 
     update () {
         //time step 
+        // this.stats.begin();
         let now = Date.now();
         let then = this.lastUpdateTime;
         // let dt = 0.016666;
@@ -183,6 +186,7 @@ export class Fluid{
         if (!config.PAUSED)
             this.step(dt); //do a calculation step 
         this.render(null);
+        // this.stats.end();
         requestAnimationFrame(() => this.update(this));
     }
     
@@ -737,7 +741,7 @@ function pointerPrototype () {
     this.moved = false;
     this.color = [30, 0, 300];
 }
-
+''
     
 function drawColor (target, color, colorProgram) {
     colorProgram.bind();
