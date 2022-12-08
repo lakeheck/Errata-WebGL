@@ -1,6 +1,6 @@
 export const config = {
-    SIM_RESOLUTION: 256, //simres
-    DYE_RESOLUTION: 1024, //output res 
+    SIM_RESOLUTION: 128, //simres
+    DYE_RESOLUTION: 512, //output res 
     ASPECT: 1.0,
     FLOW: 0.0066,
     SPLAT_FLOW: 0.5,
