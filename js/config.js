@@ -1,15 +1,15 @@
 export const config = {
-    SIM_RESOLUTION: 128, //simres
+    SIM_RESOLUTION: 64, //simres
     DYE_RESOLUTION: 512, //output res 
     ASPECT: 1.0,
     FLOW: 0.0066,
     SPLAT_FLOW: 0.5,
     VELOCITYSCALE: 1.0,
-    CAPTURE_RESOLUTION: 1024, //screen capture res 
+    CAPTURE_RESOLUTION: 512, //screen capture res 
     DENSITY_DISSIPATION: .85, //def need to figure out this one, think perhaps bc im squaring the color in splatColor
     VELOCITY_DISSIPATION: 2.15,
     PRESSURE: 0.8,
-    PRESSURE_ITERATIONS: 30,
+    PRESSURE_ITERATIONS: 20,
     CURL: 30,
     SPLAT_RADIUS: 0.25,
     SPLAT_FORCE: 6000,
