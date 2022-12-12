@@ -100,9 +100,9 @@ export class Fluid{
             this.base = LGL.createDoubleFBO(dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
         }
         else {//resize if needed 
-            this.dye = LGL.resizeDoubleFBO(this.dye, canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
-            this.noise = LGL.resizeDoubleFBO(this.noise, canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
-            this.base = LGL.resizeDoubleFBO(this.base, canvas.width, canvas.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.dye = LGL.resizeDoubleFBO(this.dye, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.noise = LGL.resizeDoubleFBO(this.noise, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
+            this.base = LGL.resizeDoubleFBO(this.base, dyeRes.width, dyeRes.height, rgba.internalFormat, rgba.format, texType, filtering);
         }
         if (this.velocity == null)
             this.velocity = LGL.createDoubleFBO(simRes.width, simRes.height, rg.internalFormat, rg.format, texType, filtering);
@@ -117,6 +117,8 @@ export class Fluid{
         //setup buffers for post process 
         this.initBloomFramebuffers();
         this.initSunraysFramebuffers();
+        console.log(this.dye.width, this.dye.height);
+
         // this.stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
     }
 
@@ -188,8 +190,8 @@ export class Fluid{
         this.lastUpdateTime = now;
         this.noiseSeed += dt * config.NOISE_TRANSLATE_SPEED;
         this.baseNoiseSeed += dt * config.ERRATA_NOISE_TRANSLATE_SPEED;
-        if (LGL.resizeCanvas()) //resize if needed 
-            // this.initFramebuffers();
+        if (LGL.resizeCanvas() || this.dye.height != config.DYE_RESOLUTION || this.velocity.height != config.SIM_RESOLUTION) //resize if needed 
+            this.initFramebuffers();
         this.updateColors(dt); //step through our sim 
         this.applyInputs(); //take from ui
         if (!config.PAUSED)
@@ -415,7 +417,7 @@ export class Fluid{
         }
         if (config.SUNRAYS)
             gl.uniform1i(this.displayMaterial.uniforms.uSunrays, this.sunrays.attach(3));
-        LGL.blit(target);
+        LGL.blit();
     }
 
     applyBloom (source, destination) {
