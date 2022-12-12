@@ -117,9 +117,7 @@ export class Fluid{
         //setup buffers for post process 
         this.initBloomFramebuffers();
         this.initSunraysFramebuffers();
-        console.log(this.dye.width, this.dye.height);
-
-        // this.stats.showPanel( 1 ); // 0: fps, 1: ms, 2: mb, 3+: custom
+        // console.log(this.dye.width, this.dye.height);
     }
 
     initBloomFramebuffers () {
