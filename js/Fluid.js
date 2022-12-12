@@ -16,7 +16,9 @@ export class Fluid{
         this.noiseSeed = 0.0;
         this.baseNoiseSeed = 0.0;
         this.colorUpdateTimer = 0.0;
+        this.initStats();
     }
+
 
     splatStack = [];
     gui;
@@ -67,6 +69,13 @@ export class Fluid{
     ditheringTexture = LGL.createTextureAsync('img/LDR_LLL1_0.png');
     
     // displayMaterial = new LGL.Material(GLSL.baseVertexShader, GLSL.displayShaderSource);
+    initStats(){
+        this.stats = new LGL.Stats();
+        let container = document.createElement('div')
+        document.body.appendChild(container );
+        container.appendChild(this.stats.dom);
+    }
+
 
     initFramebuffers () {
         let simRes = LGL.getResolution(config.SIM_RESOLUTION);//getResolution basically just applies view aspect ratio to the passed resolution 
@@ -186,7 +195,7 @@ export class Fluid{
         if (!config.PAUSED)
             this.step(dt); //do a calculation step 
         this.render(null);
-        // this.stats.end();
+        this.stats.update();
         requestAnimationFrame(() => this.update(this));
     }
     
